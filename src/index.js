@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
 import { createStore } from "redux";
 import "./styles.css";
@@ -14,17 +14,29 @@ const counter = (state = 0, action) => {
   }
 };
 
-const store = createStore(counter);
-console.log(store.getState());
+const Counter = ({ values, onIncrement, onDecrement }) => (
+  <div>
+    return <h1>{values}</h1>;<button onClick={onIncrement}>+</button>
+    <button onClick={onDecrement}>-</button>
+  </div>
+);
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
-    </div>
-  );
-}
+const store = createStore(counter);
 
 const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+ReactDOM.render(
+  <Counter
+    values={store.getState()}
+    onIncrement={() =>
+      store.disparch({
+        type: "INCREMENT"
+      })
+    }
+    onDecrement={() =>
+      store.disparch({
+        type: "DECREMENTE"
+      })
+    }
+  />,
+  rootElement
+);
